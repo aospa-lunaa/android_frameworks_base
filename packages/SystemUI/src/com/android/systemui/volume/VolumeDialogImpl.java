@@ -298,6 +298,9 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
     private View mODICaptionsTooltipView = null;
     private boolean mHasAlertSlider;
 
+    // Volume panel placement left or right
+    private boolean mVolumePanelOnLeft;
+
     private final boolean mUseBackgroundBlur;
     private Consumer<Boolean> mCrossWindowBlurEnabledListener;
     private BackgroundBlurDrawable mDialogRowsViewBackground;
@@ -377,6 +380,8 @@ public class VolumeDialogImpl implements VolumeDialog, Dumpable,
         mInteractionJankMonitor = interactionJankMonitor;
         mHasAlertSlider =
             mContext.getResources().getBoolean(com.android.internal.R.bool.config_hasAlertSlider);
+        mVolumePanelOnLeft =
+            mContext.getResources().getBoolean(R.bool.config_audioPanelOnLeftSide);
 
         dumpManager.registerDumpable("VolumeDialogImpl", this);
 
