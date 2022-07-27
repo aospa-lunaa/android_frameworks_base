@@ -51,6 +51,7 @@ import com.android.systemui.doze.dagger.DozeScope;
 import com.android.systemui.log.SessionTracker;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.phone.DozeParameters;
+import com.android.systemui.statusbar.phone.KeyguardLiftController;
 import com.android.systemui.statusbar.policy.DevicePostureController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.util.Assert;
@@ -103,6 +104,7 @@ public class DozeTriggers implements DozeMachine.Part {
     private final ProximityCheck mProxCheck;
     private final BroadcastDispatcher mBroadcastDispatcher;
     private final AuthController mAuthController;
+    private final KeyguardLiftController mKeyguardLiftController;
     private final KeyguardStateController mKeyguardStateController;
     private final UserTracker mUserTracker;
     private final UiEventLogger mUiEventLogger;
@@ -202,6 +204,7 @@ public class DozeTriggers implements DozeMachine.Part {
             UiEventLogger uiEventLogger,
             SessionTracker sessionTracker,
             KeyguardStateController keyguardStateController,
+            KeyguardLiftController keyguardLiftController,
             DevicePostureController devicePostureController,
             UserTracker userTracker) {
         mContext = context;
@@ -223,6 +226,7 @@ public class DozeTriggers implements DozeMachine.Part {
         mAuthController = authController;
         mUiEventLogger = uiEventLogger;
         mKeyguardStateController = keyguardStateController;
+        mKeyguardLiftController = keyguardLiftController;
         mUserTracker = userTracker;
     }
 
@@ -336,6 +340,7 @@ public class DozeTriggers implements DozeMachine.Part {
                         return;
                     }
                     gentleWakeUp(pulseReason);
+                    mKeyguardLiftController.setPickupWake(true);
                 } else if (isUdfpsLongPress) {
                     if (canPulse(mMachine.getState(), true)) {
                         mDozeLog.d("updfsLongPress - setting aodInterruptRunnable to run when "
