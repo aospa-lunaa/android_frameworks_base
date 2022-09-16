@@ -65,11 +65,11 @@
             android:paddingEnd="1dp"
             android:visibility="gone" />
         <Space
-            android:id="@+id/mobile_roaming_space"
+            android:id="@+id/mobile_volte_space"
             android:layout_height="match_parent"
-            android:layout_width="@dimen/roaming_icon_start_padding"
+            android:layout_width="4dp"
             android:visibility="gone"
-            />
+        />
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,19 +81,10 @@
                 systemui:hasOverlappingRendering="false"
                 />
             <ImageView
-                android:id="@+id/mobile_roaming"
-                android:layout_width="wrap_content"
+                android:id="@+id/mobile_volte"
                 android:layout_height="wrap_content"
-                android:src="@drawable/stat_sys_roaming"
-                android:contentDescription="@string/data_connection_roaming"
+                android:layout_width="wrap_content"
                 android:visibility="gone" />
         </FrameLayout>
-        <ImageView
-            android:id="@+id/mobile_roaming_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/stat_sys_roaming_large"
-            android:contentDescription="@string/data_connection_roaming"
-            android:visibility="gone" />
     </com.android.keyguard.AlphaOptimizedLinearLayout>
 </merge>

@@ -60,8 +60,8 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
     private View mInoutContainer;
     private ImageView mIn;
     private ImageView mOut;
-    private ImageView mMobile, mMobileType, mMobileRoaming;
-    private View mMobileRoamingSpace;
+    private ImageView mMobile, mMobileType;
+    private View mMobileRoamingSpace, mVolteSpace;
     @StatusBarIconView.VisibleState
     private int mVisibleState = STATE_HIDDEN;
     private DualToneHandler mDualToneHandler;
@@ -127,8 +127,13 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         mMobileGroup = findViewById(R.id.mobile_group);
         mMobile = findViewById(R.id.mobile_signal);
         mMobileType = findViewById(R.id.mobile_type);
+<<<<<<< HEAD
         mMobileRoaming = findViewById(R.id.mobile_roaming);
         mMobileRoamingSpace = findViewById(R.id.mobile_roaming_space);
+=======
+        mMobileTypeSpace = findViewById(R.id.mobile_type_space);
+        mVolteSpace = findViewById(R.id.mobile_volte_space);
+>>>>>>> c0c5551009f1 (SystemUI: Enable & improve statusbar VoLTE/VoWiFi icon)
         mIn = findViewById(R.id.mobile_in);
         mOut = findViewById(R.id.mobile_out);
         mInoutContainer = findViewById(R.id.inout_container);
@@ -190,8 +195,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
             mMobileType.setVisibility(View.GONE);
         }
         mMobile.setVisibility(mState.showTriangle ? View.VISIBLE : View.GONE);
-        mMobileRoaming.setVisibility(mState.roaming ? View.VISIBLE : View.GONE);
-        mMobileRoamingSpace.setVisibility(mState.roaming ? View.VISIBLE : View.GONE);
         mIn.setVisibility(mState.activityIn ? View.VISIBLE : View.GONE);
         mOut.setVisibility(mState.activityOut ? View.VISIBLE : View.GONE);
         mInoutContainer.setVisibility((mState.activityIn || mState.activityOut)
@@ -199,8 +202,10 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         if (mState.volteId > 0 ) {
             mVolte.setImageResource(mState.volteId);
             mVolte.setVisibility(View.VISIBLE);
+            mVolteSpace.setVisibility(View.VISIBLE);
         }else {
             mVolte.setVisibility(View.GONE);
+            mVolteSpace.setVisibility(View.GONE);
         }
     }
 
@@ -231,8 +236,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         }
 
         mMobile.setVisibility(state.showTriangle ? View.VISIBLE : View.GONE);
-        mMobileRoaming.setVisibility(state.roaming ? View.VISIBLE : View.GONE);
-        mMobileRoamingSpace.setVisibility(state.roaming ? View.VISIBLE : View.GONE);
         mIn.setVisibility(state.activityIn ? View.VISIBLE : View.GONE);
         mOut.setVisibility(state.activityOut ? View.VISIBLE : View.GONE);
         mInoutContainer.setVisibility((state.activityIn || state.activityOut)
@@ -242,12 +245,14 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
             if (state.volteId != 0) {
                 mVolte.setImageResource(state.volteId);
                 mVolte.setVisibility(View.VISIBLE);
+                mVolteSpace.setVisibility(View.VISIBLE);
             } else {
                 mVolte.setVisibility(View.GONE);
+                mVolteSpace.setVisibility(View.GONE);
             }
         }
 
-        needsLayout |= state.roaming != mState.roaming
+        needsLayout |= state.volteId != mState.volteId
                 || state.activityIn != mState.activityIn
                 || state.activityOut != mState.activityOut
                 || state.showTriangle != mState.showTriangle;
@@ -266,7 +271,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         mOut.setImageTintList(color);
         mMobileType.setImageTintList(color);
         mVolte.setImageTintList(color);
-        mMobileRoaming.setImageTintList(color);
         mDotView.setDecorColor(tint);
         mDotView.setIconColor(tint, false);
     }
@@ -288,7 +292,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         mOut.setImageTintList(list);
         mMobileType.setImageTintList(list);
         mVolte.setImageTintList(list);
-        mMobileRoaming.setImageTintList(list);
         mDotView.setDecorColor(color);
     }
 
