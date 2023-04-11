@@ -36,12 +36,6 @@
         <item>Don\'t show this icon</item>
     </string-array>
 
-    <!-- Name of the VoLTE status bar icon. -->
-    <string name="status_bar_volte">VoLTE</string>
-
-    <!-- Name of the VoWiFi status bar icon. -->
-    <string name="status_bar_vowifi">VoWiFi</string>
-
     <!-- Name of the nfc status bar icon. -->
     <string name="status_bar_nfc">NFC</string>
 
