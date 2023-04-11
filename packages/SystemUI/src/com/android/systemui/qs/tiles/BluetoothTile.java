@@ -47,7 +47,6 @@ import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.logging.QSLogger;
 import com.android.systemui.qs.tileimpl.QSTileImpl;
-import com.android.systemui.qs.tiles.dialog.BluetoothDialogFactory;
 import com.android.systemui.statusbar.policy.BluetoothController;
 
 import java.util.List;
@@ -58,9 +57,7 @@ import javax.inject.Inject;
 public class BluetoothTile extends QSTileImpl<BooleanState> {
     private static final Intent BLUETOOTH_SETTINGS = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
 
-    private final Handler mHandler;
     private final BluetoothController mController;
-    private final BluetoothDialogFactory mBluetoothDialogFactory;
 
     @Inject
     public BluetoothTile(
@@ -72,27 +69,26 @@ public class BluetoothTile extends QSTileImpl<BooleanState> {
             StatusBarStateController statusBarStateController,
             ActivityStarter activityStarter,
             QSLogger qsLogger,
-            BluetoothController bluetoothController,
-            BluetoothDialogFactory bluetoothDialogFactory
+            BluetoothController bluetoothController
     ) {
         super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
-        mHandler = mainHandler;
         mController = bluetoothController;
-        mBluetoothDialogFactory = bluetoothDialogFactory;
         mController.observe(getLifecycle(), mCallback);
     }
 
     @Override
     public BooleanState newTileState() {
-        BooleanState s = new BooleanState();
-        s.forceExpandIcon = true;
-        return s;
+        return new BooleanState();
     }
 
     @Override
     protected void handleClick(@Nullable View view) {
-        mHandler.post(() -> mBluetoothDialogFactory.create(true, view));
+        // Secondary clicks are header clicks, just toggle.
+        final boolean isEnabled = mState.value;
+        // Immediately enter transient enabling state when turning bluetooth on.
+        refreshState(isEnabled ? null : ARG_SHOW_TRANSIENT_ENABLING);
+        mController.setBluetoothEnabled(!isEnabled);
     }
 
     @Override
