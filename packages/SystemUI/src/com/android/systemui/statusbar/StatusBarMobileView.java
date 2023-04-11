@@ -61,7 +61,7 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
     private ImageView mIn;
     private ImageView mOut;
     private ImageView mMobile, mMobileType;
-    private View mMobileTypeSpace, mMobileVolteSpace;
+    private View mMobileRoamingSpace, mVolteSpace;
     @StatusBarIconView.VisibleState
     private int mVisibleState = STATE_HIDDEN;
     private DualToneHandler mDualToneHandler;
@@ -130,14 +130,10 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
 <<<<<<< HEAD
         mMobileRoaming = findViewById(R.id.mobile_roaming);
         mMobileRoamingSpace = findViewById(R.id.mobile_roaming_space);
-<<<<<<< HEAD
 =======
         mMobileTypeSpace = findViewById(R.id.mobile_type_space);
         mVolteSpace = findViewById(R.id.mobile_volte_space);
 >>>>>>> c0c5551009f1 (SystemUI: Enable & improve statusbar VoLTE/VoWiFi icon)
-=======
-        mMobileTypeSpace = findViewById(R.id.mobile_type_space);
->>>>>>> 776ab175ced6 (SystemUI: Improve statusbar mobile type icons padding)
         mIn = findViewById(R.id.mobile_in);
         mOut = findViewById(R.id.mobile_out);
         mInoutContainer = findViewById(R.id.inout_container);
@@ -198,7 +194,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
         } else {
             mMobileType.setVisibility(View.GONE);
         }
-        mMobileTypeSpace.setVisibility(mState.typeSpacerVisible ? View.VISIBLE : View.GONE);
         mMobile.setVisibility(mState.showTriangle ? View.VISIBLE : View.GONE);
         mIn.setVisibility(mState.activityIn ? View.VISIBLE : View.GONE);
         mOut.setVisibility(mState.activityOut ? View.VISIBLE : View.GONE);
@@ -239,7 +234,7 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
                 mMobileType.setVisibility(View.GONE);
             }
         }
-        mMobileTypeSpace.setVisibility(state.typeSpacerVisible ? View.VISIBLE : View.GONE);
+
         mMobile.setVisibility(state.showTriangle ? View.VISIBLE : View.GONE);
         mIn.setVisibility(state.activityIn ? View.VISIBLE : View.GONE);
         mOut.setVisibility(state.activityOut ? View.VISIBLE : View.GONE);
