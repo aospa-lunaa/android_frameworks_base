@@ -104,7 +104,7 @@ public class QSFooterViewController extends ViewController<QSFooterView>
             FalsingManager falsingManager,
             ActivityStarter activityStarter,
             QSPanelController qsPanelController,
-            RetailModeInteractor retailModeInteractor,
+            RetailModeInteractor retailModeInteractor
             NetworkController networkController,
             WifiStatusTrackerFactory trackerFactory,
             Context context,
